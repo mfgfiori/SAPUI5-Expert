@@ -1,10 +1,20 @@
 <mvc:View controllerName="logaligroup.SAPUI5.controller.InvoicesList"
           xmlns="sap.m" 
           xmlns:mvc="sap.ui.core.mvc">
-    <List headerText="{i18n>invoiceListTitle}" 
+    <List id="invoiceList"
+          headerText="{i18n>invoiceListTitle}" 
           class="sapUIiResposiveMargin" 
           width="auto" 
-          items="{invoices>/Invoices}">    
+          items="{path : 'invoices>/Invoices',
+                  sorter : { path : 'ShipperName', 
+                             group : true}}">    
+        <headerToolbar>
+            <Toolbar>
+                <Title text="{i18n>invoiceListTitle}" ></Title>
+                <ToolbarSpacer/>
+                <SearchField width="50%" search=".onFilterInvoices"></SearchField>
+            </Toolbar>
+        </headerToolbar>  
         <items>
             <ObjectListItem title="{invoices>Quantity} x {invoices>ProductName}"
                             number="{ parts : [ {path: 'invoices>ExtendedPrice'},
